@@ -1,12 +1,45 @@
 <template>
 	<div class="about">
+		<v-layout wrap>
+			<v-navigation-drawer v-model="drawer"
+			                     absolute
+			                     temporary
+			>
+				<v-list class="pa-1">
+					<v-list-tile avatar>
+						<v-list-tile-avatar>
+							<img src="https://randomuser.me/api/portraits/men/85.jpg">
+						</v-list-tile-avatar>
+						<v-list-tile-content>
+							<v-list-tile-title>John Leider</v-list-tile-title>
+						</v-list-tile-content>
+					</v-list-tile>
+				</v-list>
+				<v-list class="pt-0"
+				        dense
+				>
+					<v-divider></v-divider>
+					<v-list-tile v-for="item in items"
+					             :key="item.title"
+					             @click=""
+					>
+						<v-list-tile-action>
+							<v-icon>{{ item.icon }}</v-icon>
+						</v-list-tile-action>
+						<v-list-tile-content>
+							<v-list-tile-title>{{ item.title }}</v-list-tile-title>
+						</v-list-tile-content>
+					</v-list-tile>
+				</v-list>
+			</v-navigation-drawer>
+		</v-layout>
 		<div id="lateral">
 			<v-toolbar dark
 			           tabs
 			           flat
 			           color="indigo"
 			>
-				<v-toolbar-side-icon></v-toolbar-side-icon>
+				<v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
 				<v-toolbar-title>Page title</v-toolbar-title>
 				<v-spacer></v-spacer>
 				<v-btn icon>
@@ -90,15 +123,41 @@
 				</v-card>
 			</v-dialog>
 		</div>
+		<v-expansion-panel dark
+		                   :expand="true"
+		>
+			<v-expansion-panel-content v-for="(item,i) in 5"
+			                           :key="i"
+			>
+				<template v-slot:header>
+					<div>Item</div>
+				</template>
+				<v-card>
+					<v-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+					             incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+					             exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					</v-card-text>
+				</v-card>
+			</v-expansion-panel-content>
+		</v-expansion-panel>
 	</div>
 </template>
 <script>
 	export default {
 		data: () => ({
+			drawer: null,
+			items:  [
+				{ title:  'Home',
+					icon: 'dashboard'
+				},
+				{ title:  'About',
+					icon: 'question_answer'
+				}
+			],
 			fab:    false,
 			hidden: false,
 			tabs:   null,
-			dialog: false
+			dialog: false,
 		}),
 
 		computed: {
