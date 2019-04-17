@@ -1,4 +1,4 @@
-# vue_one
+# a vue project use vuetify
 
 ## Project setup
 ```
